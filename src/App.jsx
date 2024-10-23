@@ -12,7 +12,6 @@ const App = () => {
   const isRunningRef = useRef(false)
   const doremonRef = useRef(null);
   const miceRef = useRef(null);
-  // const scoreRef = useRef(null);
   const themeSong = useRef(new Audio('/music/doremon.mp3'));
   const sadSong = useRef(new Audio('/music/sad.mp3'));
   const [doremonPosition, setDoremonPosition] = useState({ left: 0 });
