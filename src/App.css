@@ -1,42 +1,138 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.top {
+  z-index: inherit;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-family: sans-serif;
+  font-weight: bolder;
+}
+.container {
+  width: 100%;
+  height: 100vh;
+}
+html {
+  font-size: 62.5%;
+  font-family: sans-serif;
+}
+body {
+  overflow: hidden;
+}
+.sky {
+  background-image: url("/images/sky.jpg");
+  width: 100%;
+  height: 100vh;
+  background-size: contain;
+  background-repeat: repeat-x;
+}
+.start {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: sans-serif;
+  padding-top: 2rem;
+}
+.end {
+  padding: 1rem 2rem;
+  color: white;
+  background-color: rgb(220, 5, 5);
+  margin-top: 3rem;
+  width: auto;
   text-align: center;
+  border-radius: 2rem;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.disp {
+  display: none;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.surface {
+  background-image: url("/images/3.png");
+  width: 100%;
+  height: 50vh;
+  background-size: contain;
+  background-repeat: repeat-x;
+  position: absolute;
+  bottom: -11.5rem;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.doremon {
+  background-image: url("/images/1.png");
+  width: 100%;
+  height: 45vh;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 3rem;
+  left: 10rem;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.mice {
+  background-image: url("/images/2.png");
+  width: 100%;
+  height: 30vh;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 0rem;
+  left: 50rem;
+}
+.mice_ani {
+  animation: miceAnimate 2.7s linear infinite;
+}
+.dinoAnimate {
+  animation: dino 0.8s linear;
+}
+.dinoAnimateH {
+  animation: dinoH 0.6s linear;
+}
+@keyframes dino {
+  0% {
+    bottom: 3rem;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    bottom: 25rem;
+  }
+  100% {
+    bottom: 3rem;
   }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@keyframes dinoH {
+  100% {
+    left: 20rem;
   }
 }
-
-.card {
-  padding: 2em;
+@keyframes miceAnimate {
+  0% {
+    left: 120rem;
+  }
+  100% {
+    left: -20rem;
+  }
 }
-
-.read-the-docs {
-  color: #888;
+@media screen and (max-width: 480px) {
+  * {
+    visibility: hidden;
+  }
+  .top {
+    background-color: rgb(100, 0, 0);
+    color: white;
+    visibility: visible;
+    z-index: 10;
+  }
+}
+@media screen and (min-width: 480px) {
+  * {
+    visibility: visible;
+  }
+  .top {
+    visibility: hidden;
+    z-index: 0;
+    width: 0vw;
+    height: 0vh;
+  }
 }

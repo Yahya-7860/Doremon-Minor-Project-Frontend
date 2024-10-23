@@ -1,0 +1,126 @@
+.navbar_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  background-image: linear-gradient(
+    to right,
+    rgb(205, 190, 255),
+    rgb(94, 48, 186),
+    rgb(205, 190, 255)
+  );
+}
+.navbar_leftSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.navbar_rightSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.startBtn {
+  padding: 0.8rem;
+  font-size: 1.5rem;
+  color: white;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(0, 148, 0),
+    green,
+    rgb(0, 62, 4)
+  );
+  font-weight: bold;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.startBtn:hover {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(97, 255, 97),
+    rgb(111, 255, 111),
+    rgba(0, 0, 0, 0.37)
+  );
+  color: black;
+}
+.startBtn:active {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.676),
+    green,
+    green
+  );
+
+  color: black;
+}
+.score_board {
+  font-family: sans-serif;
+  font-size: 1rem;
+}
+.score {
+  padding: 0.6rem 1.5rem;
+  background-color: rgb(211, 200, 0);
+  width: auto;
+  cursor: default;
+  border-radius: 2rem;
+  box-shadow: 0.2rem 0.2rem 0.5rem 0rem rgba(0, 0, 0, 0.521);
+}
+.max_scoreBox {
+  padding: 0.6rem 1.5rem;
+  background-color: rgb(212, 201, 0);
+  width: auto;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0.2rem 0.2rem 0.5rem 0rem rgb(0, 0, 0);
+}
+.leaderboard {
+  padding: 0.8rem;
+  font-size: 1.5rem;
+  color: white;
+  background-image: linear-gradient(to bottom, green, green, rgb(0, 62, 4));
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.leaderboard:hover {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(97, 255, 97),
+    rgb(111, 255, 111),
+    rgba(0, 0, 0, 0.37)
+  );
+  color: black;
+}
+.leaderboard:active {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.676),
+    green,
+    green
+  );
+
+  color: black;
+}
+.userIcon {
+  font-size: 3.5rem;
+  color: rgb(160, 0, 0);
+  cursor: pointer;
+}
+.userIcon:hover {
+  color: rgb(203, 0, 0);
+}
+.userIcon:active {
+  color: rgb(236, 0, 0);
+}
+.gameName {
+  color: white;
+  font-size: 3rem;
+  text-shadow: 0.2rem 0.2rem 1rem black;
+}
