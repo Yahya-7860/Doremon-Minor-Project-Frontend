@@ -44,7 +44,7 @@ function Login_signup() {
             <div className={styles.panels_container}>
                 <div className={`${styles.panel} ${styles.left_panel}`}>
                     <div className={styles.content}>
-                        <h3>New here ?</h3>
+                        <h1>New Player Here ?</h1>
                         <p>
                             Are you a new player ? No problem i will save your details in my Database. Just click on below Sign Up button.
                         </p>
@@ -52,11 +52,11 @@ function Login_signup() {
                             Sign up
                         </button>
                     </div>
-                    <img src="img/log.svg" className={styles.image} alt="" />
+                    <img src="/images/LoginDora.png" className={styles.image} />
                 </div>
                 <div className={`${styles.panel} ${styles.right_panel}`}>
                     <div className={styles.content}>
-                        <h3>One of us ?</h3>
+                        <h1>Already Signed Up ?</h1>
                         <p>
                             Are you already our player ? Then why are you registering yourself again. Just login with your credentails and enjoy the game.
                         </p>
@@ -64,7 +64,7 @@ function Login_signup() {
                             Sign in
                         </button>
                     </div>
-                    <img src="img/register.svg" className={styles.image} alt="" />
+                    <img src="/images/SignupDora.png" className={styles.image} />
                 </div>
             </div>
         </div>
