@@ -19,7 +19,7 @@ const users = [
 
 const LeaderBoardModal = ({ setIsOpen }) => {
     return (
-        <div className={styles.modal_overlay}>
+        <div className={styles.modal_overlay} >
             <div className={styles.modal_content}>
                 <h2 className={styles.modal_title}>Leaderboard</h2>
                 <table className={styles.leaderboard_table}>

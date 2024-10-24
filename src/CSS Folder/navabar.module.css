@@ -37,6 +37,7 @@
   border: none;
   border-radius: 1rem;
   cursor: pointer;
+  transition: 0.3s ease-out;
 }
 .startBtn:hover {
   background-image: linear-gradient(
@@ -46,6 +47,7 @@
     rgba(0, 0, 0, 0.37)
   );
   color: black;
+  transition: 0.2s ease-in;
 }
 .startBtn:active {
   background-image: linear-gradient(
@@ -88,6 +90,7 @@
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  transition: 0.3s ease-out;
 }
 .leaderboard:hover {
   background-image: linear-gradient(
@@ -97,6 +100,7 @@
     rgba(0, 0, 0, 0.37)
   );
   color: black;
+  transition: 0.2s ease-in;
 }
 .leaderboard:active {
   background-image: linear-gradient(

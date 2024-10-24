@@ -1,0 +1,49 @@
+.main_container {
+  background-image: url("/images/welcomePage.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+.text_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.textDiv {
+  background-color: rgba(66, 157, 255, 0.514);
+  width: fit-content;
+  padding: 3rem;
+  border-radius: 2rem;
+  backdrop-filter: blur(4px);
+  color: white;
+  text-shadow: 0.3rem 0.2rem 1rem black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.welcomeText {
+  font-size: 5rem;
+}
+.welcomeBtn {
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 1rem 2rem;
+  box-shadow: 0.2rem 0.3rem 0.6rem 0rem rgb(71, 71, 71);
+  transition: 0.2s ease-out;
+}
+.welcomeBtn:hover {
+  background-color: black;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+.welcomeBtn:active {
+  background-color: white;
+  color: black;
+  transition: 0.08s ease-in-out;
+}
