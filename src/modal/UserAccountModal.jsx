@@ -18,7 +18,6 @@ const UserAccountModal = ({ setIsOpen }) => {
                 </div>
                 <h2 className={styles.username}>Username : shamin</h2>
                 <div className={styles.leaderBtns}>
-                    <button className={styles.Reg_newPlyer}>Register New Player</button>
                     <button className={styles.logout_btn}>Log Out</button>
                     <button className={styles.delete_btn}>Delete Account</button>
                 </div>
