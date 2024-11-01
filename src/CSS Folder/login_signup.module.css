@@ -49,6 +49,12 @@ form.sign_up_form {
   z-index: 1;
 }
 
+.isExist,
+.isInvalid {
+  color: red;
+  font-size: 1.5rem;
+}
+
 form.sign_in_form {
   z-index: 2;
 }
