@@ -21,7 +21,15 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   text-align: center;
 }
-
+.modal_content_loading {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 100%;
+  width: 30rem;
+  max-width: 90%;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
 .user_icon {
   font-size: 15rem;
 }

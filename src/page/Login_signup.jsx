@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import styles from "../CSS Folder/login_signup.module.css"
 import { useNavigate } from "react-router-dom";
 import ConfettiExplosion from 'react-confetti-explosion'
+import Loading from "../modal/Loading";
 
 function Login_signup() {
     const navigate = useNavigate();
@@ -16,7 +17,8 @@ function Login_signup() {
         isExist: false,
         confTrue: false,
         invalidUser: false,
-        wrongPass: false
+        wrongPass: false,
+        loading: false,
     });
 
     const containerRef = useRef(null)
@@ -28,6 +30,7 @@ function Login_signup() {
     };
     const handle_Register_Submit = async (e) => {
         e.preventDefault();
+        setState((pre) => ({ ...pre, loading: true }))
         setState((pre) => ({ ...pre, confTrue: false }))
         const options = {
             method: "POST",
@@ -40,6 +43,7 @@ function Login_signup() {
         await fetch("http://localhost:3000/user/register", options)
             .then((res) => res.json())
             .then((data) => {
+                setState((pre) => ({ ...pre, loading: false }))
                 const token = data.token;
                 localStorage.setItem('token', token);
                 if (data.message === 'exist') {
@@ -47,7 +51,10 @@ function Login_signup() {
                     return;
                 }
                 setState((pre) => ({ ...pre, confTrue: true }))
-                // navigate('/welcome')
+                setInput((pre) => ({ ...pre, RegUsername: '', RegPassword: '' }))
+                setTimeout(() => {
+                    navigate('/welcome')
+                }, 2500);
 
             })
             .catch((err) => console.error(err))
@@ -56,7 +63,7 @@ function Login_signup() {
 
     const handle_login_submit = async (e) => {
         e.preventDefault();
-        setState((pre) => ({ ...pre, confTrue: false }))
+        setState((pre) => ({ ...pre, loading: true, confTrue: false }))
         const options = {
             method: "POST",
             headers: {
@@ -68,21 +75,30 @@ function Login_signup() {
         await fetch("http://localhost:3000/user/login", options)
             .then((res) => res.json())
             .then((data) => {
+                setState((pre) => ({ ...pre, loading: false }))
+                // console.log(data)
                 const token = data.token;
                 localStorage.setItem('token', token)
                 if (data.message === "invalid user") {
                     setState((pre) => ({ ...pre, invalidUser: true }))
+                    console.log("invalid username")
                     return;
                 }
                 else if (data.message === "invalid password") {
                     setState((pre) => ({ ...pre, wrongPass: true }))
+                    console.log("invalid pass")
                     return;
                 }
-                navigate('/welcome')
+                setInput((pre) => ({ ...pre, LogUsername: '', LogPassword: '' }))
+                setState((pre) => ({ ...pre, confTrue: true }))
+                setTimeout(() => {
+                    navigate('/welcome')
+                }, 2500);
 
             })
             .catch((err) => console.log(err))
     }
+
     return <>
         <div ref={containerRef} className={styles.container}>
             <div className={styles.forms_container}>
@@ -156,6 +172,7 @@ function Login_signup() {
                 </div>
             </div>
             {state.confTrue && <ConfettiExplosion particleCount={400} zIndex={10} width={3000} />}
+            {state.loading && <Loading />}
         </div>
 
     </>;
