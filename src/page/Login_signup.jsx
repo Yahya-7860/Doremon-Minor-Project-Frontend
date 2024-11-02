@@ -3,9 +3,12 @@ import styles from "../CSS Folder/login_signup.module.css"
 import { useNavigate } from "react-router-dom";
 import ConfettiExplosion from 'react-confetti-explosion'
 import Loading from "../modal/Loading";
+import { useDispatch } from "react-redux";
+import { addUsername } from "../features/score/scoreSlice";
 
 function Login_signup() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [input, setInput] = useState({
         RegUsername: '',
         RegPassword: '',
@@ -43,6 +46,7 @@ function Login_signup() {
         await fetch("http://localhost:3000/user/register", options)
             .then((res) => res.json())
             .then((data) => {
+                console.log(data)
                 setState((pre) => ({ ...pre, loading: false }))
                 const token = data.token;
                 localStorage.setItem('token', token);
@@ -63,6 +67,9 @@ function Login_signup() {
 
     const handle_login_submit = async (e) => {
         e.preventDefault();
+        if (!input.LogUsername || !input.LogPassword) {
+            return;
+        }
         setState((pre) => ({ ...pre, loading: true, confTrue: false }))
         const options = {
             method: "POST",
@@ -76,17 +83,18 @@ function Login_signup() {
             .then((res) => res.json())
             .then((data) => {
                 setState((pre) => ({ ...pre, loading: false }))
-                // console.log(data)
                 const token = data.token;
+                const userId = data.userId;
+                const playerName = data.profileName;
+                dispatch(addUsername({ playerName: playerName }))
                 localStorage.setItem('token', token)
+                localStorage.setItem('userId', userId)
                 if (data.message === "invalid user") {
                     setState((pre) => ({ ...pre, invalidUser: true }))
-                    console.log("invalid username")
                     return;
                 }
                 else if (data.message === "invalid password") {
                     setState((pre) => ({ ...pre, wrongPass: true }))
-                    console.log("invalid pass")
                     return;
                 }
                 setInput((pre) => ({ ...pre, LogUsername: '', LogPassword: '' }))
@@ -94,6 +102,8 @@ function Login_signup() {
                 setTimeout(() => {
                     navigate('/welcome')
                 }, 2500);
+
+
 
             })
             .catch((err) => console.log(err))

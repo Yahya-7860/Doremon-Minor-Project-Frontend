@@ -3,9 +3,18 @@ import React from 'react';
 import styles from "../CSS Folder/userAccountModal.module.css"
 import { FaUserCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const UserAccountModal = ({ setIsOpen }) => {
+    const playerName = useSelector((state) => state.score.username)
+    const navigate = useNavigate()
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        navigate('/')
+    }
     return (
         <div className={styles.modal_overlay}>
             <div className={styles.modal_content}>
@@ -16,9 +25,9 @@ const UserAccountModal = ({ setIsOpen }) => {
                 <div >
                     <FaUserCircle className={styles.user_icon} />
                 </div>
-                <h2 className={styles.username}>Username : shamin</h2>
+                <h2 className={styles.username}>Username : {playerName}</h2>
                 <div className={styles.leaderBtns}>
-                    <button className={styles.logout_btn}>Log Out</button>
+                    <button className={styles.logout_btn} onClick={handleLogout}>Log Out</button>
                     <button className={styles.delete_btn}>Delete Account</button>
                 </div>
             </div>

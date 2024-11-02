@@ -1,12 +1,39 @@
 import { useState, useEffect, useRef } from 'react';
 import "../App.css";
 import Navbar from '../components/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCurrentScore, addMaxScore } from '../features/score/scoreSlice';
 
 const GamePage = () => {
+    const dispatch = useDispatch()
+    const userId = localStorage.getItem('userId')
+    const token = localStorage.getItem('token')
+
+    useEffect(() => {
+        async function fetchScore() {
+            // fetching score
+            await fetch(`http://localhost:3000/player/getScore/${userId}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    dispatch(addMaxScore({ maxScore: data.score }))
+
+                })
+        }
+        fetchScore();
+    }, []);
+
     const [game, setGame] = useState({
         gameScore: 0,
-        displayStartBtn: true
+        displayStartBtn: true,
     });
+    const updatedScoreRef = useRef(0);
+    const fetchedScoreRef = useRef(0);
+    const gameScoreRef = useRef(0);
     const [isGameOver, setIsGameOver] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
     const isRunningRef = useRef(false)
@@ -15,6 +42,41 @@ const GamePage = () => {
     const themeSong = useRef(new Audio('/music/doremon.mp3'));
     const sadSong = useRef(new Audio('/music/sad.mp3'));
     const [doremonPosition, setDoremonPosition] = useState({ left: 0 });
+
+    const handle_Score_Pass_DB = async () => {
+        // fetching score
+        await fetch(`http://localhost:3000/player/getScore/${userId}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                fetchedScoreRef.current = data.score;
+            })
+
+        //passing score but only max score
+        if (gameScoreRef.current > fetchedScoreRef.current) {
+            updatedScoreRef.current = gameScoreRef.current
+        }
+        else {
+            updatedScoreRef.current = fetchedScoreRef.current
+        }
+
+        dispatch(addMaxScore({ maxScore: updatedScoreRef.current }))
+        await fetch("http://localhost:3000/player/score", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ score: updatedScoreRef.current }),
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+
+    }
 
     const handleKeyDown = (event) => {
         if (!isRunning || isGameOver) return;
@@ -60,14 +122,14 @@ const GamePage = () => {
         isRunningRef.current = true;
         miceRef.current.classList.add('mice_ani');
         setIsGameOver(false);
-        setGame((pre) => ({ ...pre, gameScore: 0 }));
+        // setGame((pre) => ({ ...pre, gameScore: 0 }));
+        gameScoreRef.current = 0;
+        dispatch(addCurrentScore({ score: gameScoreRef.current }))
         setDoremonPosition({ left: 0 });
-        // console.log("outside of interval")
 
         let flag = true;
 
         const gameInterval = setInterval(() => {
-            // console.log("inside of interval")
 
             if (!isRunningRef.current) {
                 clearInterval(gameInterval);
@@ -88,6 +150,7 @@ const GamePage = () => {
             // console.log(disX);
 
             if (disX < 100 && disY < 40) {
+                handle_Score_Pass_DB();
                 setGame((pre) => ({ ...pre, displayStartBtn: !pre.displayStartBtn }))
                 setIsGameOver(true);
                 miceRef.current.classList.remove('mice_ani');
@@ -98,7 +161,9 @@ const GamePage = () => {
                 setTimeout(() => sadSong.current.pause(), 6000);
                 clearInterval(gameInterval);
             } else if (disX < 42 && flag) {
-                setGame((pre) => ({ ...pre, gameScore: pre.gameScore + 1 }));
+                gameScoreRef.current = gameScoreRef.current + 1;
+                setGame((pre) => ({ ...pre, gameScore: gameScoreRef.current }));
+                dispatch(addCurrentScore({ score: gameScoreRef.current }))
                 flag = false;
                 setTimeout(() => (flag = true), 1000);
             }

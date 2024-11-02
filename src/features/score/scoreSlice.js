@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     currentScore: 0,
-    allScore: []
+    maxScore: 0,
+    allScore: [],
+    username: '',
 }
 
 const scoreSlice = createSlice({
@@ -10,13 +12,19 @@ const scoreSlice = createSlice({
     initialState,
     reducers: {
         addCurrentScore: (state, action) => {
-            state.currentScore = action.payload
+            state.currentScore = action.payload.score
+        },
+        addMaxScore: (state, action) => {
+            state.maxScore = action.payload.maxScore
         },
         addAllScore: (state, action) => {
             state.allScore = state.allScore({ ...action.payload })
+        },
+        addUsername: (state, action) => {
+            state.username = action.payload.playerName
         }
     }
 })
 
-export const { addCurrentScore, addAllScore } = scoreSlice.actions;
+export const { addCurrentScore, addAllScore, addMaxScore, addUsername } = scoreSlice.actions;
 export default scoreSlice.reducer;
