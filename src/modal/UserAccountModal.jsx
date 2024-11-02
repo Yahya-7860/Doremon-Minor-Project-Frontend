@@ -3,16 +3,19 @@ import React from 'react';
 import styles from "../CSS Folder/userAccountModal.module.css"
 import { FaUserCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { changeIsAuthenticated } from '../features/score/scoreSlice';
 
 
 const UserAccountModal = ({ setIsOpen }) => {
-    const playerName = useSelector((state) => state.score.username)
-    const navigate = useNavigate()
+    const playerName = useSelector((state) => state.score.username);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
+        dispatch(changeIsAuthenticated({ bool: false }));
         navigate('/')
     }
     return (

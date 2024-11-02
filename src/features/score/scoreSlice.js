@@ -5,6 +5,7 @@ const initialState = {
     maxScore: 0,
     allScore: [],
     username: '',
+    isAuthenticated: false,
 }
 
 const scoreSlice = createSlice({
@@ -22,9 +23,12 @@ const scoreSlice = createSlice({
         },
         addUsername: (state, action) => {
             state.username = action.payload.playerName
+        },
+        changeIsAuthenticated: (state, action) => {
+            state.isAuthenticated = action.payload.bool
         }
     }
 })
 
-export const { addCurrentScore, addAllScore, addMaxScore, addUsername } = scoreSlice.actions;
+export const { addCurrentScore, addAllScore, addMaxScore, addUsername, changeIsAuthenticated } = scoreSlice.actions;
 export default scoreSlice.reducer;

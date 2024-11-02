@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { Provider } from 'react-redux'
 import store from './store.js'
+import ProtectedRoute from './utils/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
   {
@@ -17,11 +18,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/welcome",
-    element: <WelcomePage />,
+    element: (<ProtectedRoute>
+      <WelcomePage />
+    </ProtectedRoute>),
   },
   {
     path: "/game",
-    element: <GamePage />,
+    element: (<ProtectedRoute>
+      <GamePage />
+    </ProtectedRoute>),
   },
 ]);
 

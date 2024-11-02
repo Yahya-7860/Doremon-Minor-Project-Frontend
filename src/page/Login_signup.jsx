@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ConfettiExplosion from 'react-confetti-explosion'
 import Loading from "../modal/Loading";
 import { useDispatch } from "react-redux";
-import { addUsername } from "../features/score/scoreSlice";
+import { addUsername, changeIsAuthenticated } from "../features/score/scoreSlice";
 
 function Login_signup() {
     const navigate = useNavigate();
@@ -56,6 +56,7 @@ function Login_signup() {
                 }
                 setState((pre) => ({ ...pre, confTrue: true }))
                 setInput((pre) => ({ ...pre, RegUsername: '', RegPassword: '' }))
+                dispatch(changeIsAuthenticated({ bool: true }))
                 setTimeout(() => {
                     navigate('/welcome')
                 }, 2500);
@@ -99,6 +100,7 @@ function Login_signup() {
                 }
                 setInput((pre) => ({ ...pre, LogUsername: '', LogPassword: '' }))
                 setState((pre) => ({ ...pre, confTrue: true }))
+                dispatch(changeIsAuthenticated({ bool: true }))
                 setTimeout(() => {
                     navigate('/welcome')
                 }, 2500);
