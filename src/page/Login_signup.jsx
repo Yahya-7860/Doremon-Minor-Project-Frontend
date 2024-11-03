@@ -3,12 +3,9 @@ import styles from "../CSS Folder/login_signup.module.css"
 import { useNavigate } from "react-router-dom";
 import ConfettiExplosion from 'react-confetti-explosion'
 import Loading from "../modal/Loading";
-import { useDispatch } from "react-redux";
-import { addUsername } from "../features/score/scoreSlice";
 
 function Login_signup() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const [input, setInput] = useState({
         RegUsername: '',
         RegPassword: '',
@@ -67,8 +64,10 @@ function Login_signup() {
                 setState((pre) => ({ ...pre, loading: false }))
                 const token = data.token;
                 const userId = data.userId;
+                const username = data.PlayerName;
                 localStorage.setItem('userId', userId);
                 localStorage.setItem('token', token);
+                localStorage.setItem('username', username);
                 if (data.message === 'exist') {
                     setState((pre) => ({ ...pre, isExist: true }))
                     return;
@@ -113,10 +112,10 @@ function Login_signup() {
                 setState((pre) => ({ ...pre, loading: false }))
                 const token = data.token;
                 const userId = data.userId;
-                const playerName = data.profileName;
-                dispatch(addUsername({ playerName: playerName }))
+                const username = data.PlayerName;
                 localStorage.setItem('token', token)
                 localStorage.setItem('userId', userId)
+                localStorage.setItem('username', username)
                 if (data.message === "invalid user") {
                     setState((pre) => ({ ...pre, invalidUser: true }))
                     return;
