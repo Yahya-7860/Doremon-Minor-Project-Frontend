@@ -22,6 +22,10 @@ function Login_signup() {
         invalidUser: false,
         wrongPass: false,
         loading: false,
+        regEmptyUsername: false,
+        regEmptyPassword: false,
+        logEmptyUsername: false,
+        logEmptyPassword: false,
     });
 
     const containerRef = useRef(null)
@@ -33,6 +37,19 @@ function Login_signup() {
     };
     const handle_Register_Submit = async (e) => {
         e.preventDefault();
+        if (!input.RegUsername || !input.RegPassword) {
+            if (!input.RegUsername && !input.RegPassword) {
+                setState((pre) => ({ ...pre, regEmptyUsername: true, regEmptyPassword: true }));
+            } else {
+                setState((pre) => ({
+                    ...pre,
+                    regEmptyUsername: !input.RegUsername,
+                    regEmptyPassword: !input.RegPassword,
+                }));
+            }
+
+            return;
+        }
         setState((pre) => ({ ...pre, loading: true }))
         setState((pre) => ({ ...pre, confTrue: false }))
         const options = {
@@ -69,7 +86,16 @@ function Login_signup() {
     const handle_login_submit = async (e) => {
         e.preventDefault();
         if (!input.LogUsername || !input.LogPassword) {
-            return;
+            if (!input.LogUsername && !input.LogPassword) {
+                setState((pre) => ({ ...pre, logEmptyUsername: true, logEmptyPassword: true }));
+            } else {
+                setState((pre) => ({
+                    ...pre,
+                    logEmptyUsername: !input.LogUsername,
+                    logEmptyPassword: !input.LogPassword,
+                }));
+            }
+            return
         }
         setState((pre) => ({ ...pre, loading: true, confTrue: false }))
         const options = {
@@ -118,20 +144,20 @@ function Login_signup() {
                     {/* login */}
                     <form className={styles.sign_in_form} onSubmit={handle_login_submit}>
                         <h2 className={styles.title}>Sign in</h2>
-                        <div className={styles.input_field}>
+                        <div className={state.logEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : `${styles.input_field}`}>
                             <i className={`${styles.fas} ${styles.fa_user}`}></i>
                             <input type="text" placeholder="Username" value={input.LogUsername} onChange={(e) => {
                                 setInput((pre) => ({ ...pre, LogUsername: e.target.value }));
-                                setState((pre) => ({ ...pre, invalidUser: false }))
+                                setState((pre) => ({ ...pre, invalidUser: false, logEmptyUsername: false }))
 
                             }} />
                         </div>
                         {state.invalidUser && <p className={styles.isInvalid}>Invalid Username</p>}
-                        <div className={styles.input_field}>
+                        <div className={state.logEmptyPassword ? ` ${styles.EmptyInputCss} ${styles.input_field}` : `${styles.input_field}`}>
                             <i className={`${styles.fas} ${styles.fa_lock}`}></i>
                             <input type="password" placeholder="Password" value={input.LogPassword} onChange={(e) => {
                                 setInput((pre) => ({ ...pre, LogPassword: e.target.value }))
-                                setState((pre) => ({ ...pre, wrongPass: false }))
+                                setState((pre) => ({ ...pre, wrongPass: false, logEmptyPassword: false }))
                             }} />
                         </div>
                         {state.wrongPass && <p className={styles.isInvalid}>Wrong Password</p>}
@@ -140,17 +166,21 @@ function Login_signup() {
                     {/* register */}
                     <form className={styles.sign_up_form} onSubmit={handle_Register_Submit} >
                         <h2 className={styles.title}>Sign up</h2>
-                        <div className={styles.input_field}>
+                        <div className={state.regEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : `${styles.input_field}`}>
                             <i className={`${styles.fas} ${styles.fa_user}`}></i>
                             <input type="text" placeholder="Username" value={input.RegUsername} onChange={(e) => {
                                 setInput((pre) => ({ ...pre, RegUsername: e.target.value }));
-                                setState((pre) => ({ ...pre, isExist: false }))
+                                setState((pre) => ({ ...pre, isExist: false, regEmptyUsername: false }))
                             }} />
                         </div>
                         {state.isExist && <p className={styles.isExist}>Username already exist</p>}
-                        <div className={styles.input_field}>
+                        <div className={state.regEmptyPassword ? ` ${styles.EmptyInputCss} ${styles.input_field}` : `${styles.input_field}`}>
                             <i className={`${styles.fas} ${styles.fa_lock}`}></i>
-                            <input type="password" placeholder="Password" value={input.RegPassword} onChange={(e) => setInput((pre) => ({ ...pre, RegPassword: e.target.value }))} />
+                            <input type="password" placeholder="Password" value={input.RegPassword} onChange={(e) => {
+                                setInput((pre) => ({ ...pre, RegPassword: e.target.value }))
+                                setState((pre) => ({ ...pre, regEmptyPassword: false }))
+
+                            }} />
                         </div>
                         <input type="submit" className={styles.btn} value="Sign up" />
                     </form>

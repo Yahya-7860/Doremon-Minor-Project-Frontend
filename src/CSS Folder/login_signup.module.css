@@ -101,6 +101,11 @@ form.sign_in_form {
   font-weight: 500;
 }
 
+.EmptyInputCss {
+  border: 0.2rem solid red;
+  background-color: rgb(255, 223, 223);
+}
+
 .btn {
   width: 150px;
   background-color: #5995fd;
