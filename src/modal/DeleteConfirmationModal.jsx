@@ -15,12 +15,14 @@ const DeleteConfirmationModal = ({ setState }) => {
     const navigate = useNavigate();
     const handleDelete = async () => {
         setState1((pre) => ({ ...pre, isLoading: true }))
+
         const option = {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`
             },
         }
+        //will delete account
         await fetch(`http://localhost:3000/player/delete?id=${userId}`, option)
             .then((res) => res.json())
             .then((data) => {
@@ -28,6 +30,12 @@ const DeleteConfirmationModal = ({ setState }) => {
                 toast.success("Account Deleted Successfully")
                 navigate("/")
             })
+
+        //will score chart related to account
+        await fetch(`http://localhost:3000/score/deleteScore?id=${userId}`, option)
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+
     }
 
     return (

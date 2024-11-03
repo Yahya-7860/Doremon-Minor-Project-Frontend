@@ -34,7 +34,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <ToastContainer autoClose={2500} />
+      <ToastContainer autoClose={2000} />
       <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
