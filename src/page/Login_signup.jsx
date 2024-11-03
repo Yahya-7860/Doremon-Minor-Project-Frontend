@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ConfettiExplosion from 'react-confetti-explosion'
 import Loading from "../modal/Loading";
 import { useDispatch } from "react-redux";
-import { addUsername, changeIsAuthenticated } from "../features/score/scoreSlice";
+import { addUsername } from "../features/score/scoreSlice";
 
 function Login_signup() {
     const navigate = useNavigate();
@@ -66,6 +66,8 @@ function Login_signup() {
                 console.log(data)
                 setState((pre) => ({ ...pre, loading: false }))
                 const token = data.token;
+                const userId = data.userId;
+                localStorage.setItem('userId', userId);
                 localStorage.setItem('token', token);
                 if (data.message === 'exist') {
                     setState((pre) => ({ ...pre, isExist: true }))
@@ -73,7 +75,6 @@ function Login_signup() {
                 }
                 setState((pre) => ({ ...pre, confTrue: true }))
                 setInput((pre) => ({ ...pre, RegUsername: '', RegPassword: '' }))
-                dispatch(changeIsAuthenticated({ bool: true }))
                 setTimeout(() => {
                     navigate('/welcome')
                 }, 2500);
@@ -126,7 +127,6 @@ function Login_signup() {
                 }
                 setInput((pre) => ({ ...pre, LogUsername: '', LogPassword: '' }))
                 setState((pre) => ({ ...pre, confTrue: true }))
-                dispatch(changeIsAuthenticated({ bool: true }))
                 setTimeout(() => {
                     navigate('/welcome')
                 }, 2500);
@@ -215,6 +215,7 @@ function Login_signup() {
             </div>
             {state.confTrue && <ConfettiExplosion particleCount={400} zIndex={10} width={3000} />}
             {state.loading && <Loading />}
+
         </div>
 
     </>;

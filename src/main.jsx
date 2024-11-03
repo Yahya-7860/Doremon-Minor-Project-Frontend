@@ -10,6 +10,7 @@ import {
 import { Provider } from 'react-redux'
 import store from './store.js'
 import ProtectedRoute from './utils/ProtectedRoute.jsx'
+import { ToastContainer } from 'react-toastify'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
+      <ToastContainer autoClose={2500} />
       <RouterProvider router={router} />
     </Provider>
   </StrictMode>,

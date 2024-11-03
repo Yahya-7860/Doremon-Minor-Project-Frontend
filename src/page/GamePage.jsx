@@ -30,6 +30,7 @@ const GamePage = () => {
     const [game, setGame] = useState({
         gameScore: 0,
         displayStartBtn: true,
+        confTrue: false,
     });
     const updatedScoreRef = useRef(0);
     const fetchedScoreRef = useRef(0);
@@ -44,6 +45,7 @@ const GamePage = () => {
     const [doremonPosition, setDoremonPosition] = useState({ left: 0 });
 
     const handle_Score_Pass_DB = async () => {
+        setGame((pre) => ({ ...pre, confTrue: false }))
         // fetching score
         await fetch(`http://localhost:3000/player/getScore/${userId}`, {
             method: "GET",
@@ -59,6 +61,7 @@ const GamePage = () => {
         //passing score but only max score
         if (gameScoreRef.current > fetchedScoreRef.current) {
             updatedScoreRef.current = gameScoreRef.current
+            setGame((pre) => ({ ...pre, confTrue: true }))
         }
         else {
             updatedScoreRef.current = fetchedScoreRef.current

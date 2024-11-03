@@ -5,7 +5,6 @@ const initialState = {
     maxScore: 0,
     allScore: [],
     username: '',
-    isAuthenticated: false,
 }
 
 const scoreSlice = createSlice({
@@ -24,9 +23,6 @@ const scoreSlice = createSlice({
         addUsername: (state, action) => {
             state.username = action.payload.playerName
         },
-        changeIsAuthenticated: (state, action) => {
-            state.isAuthenticated = action.payload.bool
-        }
     }
 })
 

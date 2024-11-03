@@ -31,7 +31,8 @@
   text-align: center;
 }
 .user_icon {
-  font-size: 15rem;
+  font-size: 13rem;
+  margin-bottom: 1rem;
 }
 
 .username {
