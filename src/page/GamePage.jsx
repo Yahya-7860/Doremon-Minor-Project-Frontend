@@ -42,6 +42,7 @@ const GamePage = () => {
     const miceRef = useRef(null);
     const themeSong = useRef(new Audio('/music/doremon.mp3'));
     const sadSong = useRef(new Audio('/music/sad.mp3'));
+    const username = localStorage.getItem('username')
     const [doremonPosition, setDoremonPosition] = useState({ left: 0 });
 
     const handle_Score_Pass_DB = async () => {
@@ -74,7 +75,7 @@ const GamePage = () => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({ score: updatedScoreRef.current }),
+            body: JSON.stringify({ score: updatedScoreRef.current, username: username }),
         })
             .then((res) => res.json())
             .then((data) => console.log(data))
@@ -125,7 +126,6 @@ const GamePage = () => {
         isRunningRef.current = true;
         miceRef.current.classList.add('mice_ani');
         setIsGameOver(false);
-        // setGame((pre) => ({ ...pre, gameScore: 0 }));
         gameScoreRef.current = 0;
         dispatch(addCurrentScore({ score: gameScoreRef.current }))
         setDoremonPosition({ left: 0 });

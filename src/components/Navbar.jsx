@@ -19,7 +19,7 @@ function Navbar({ game, isGameOver, startGame, endGame }) {
             {/* start end button */}
             <div className={styles.navbar_leftSection}>
                 <div className={styles.start} >
-                    <button className={styles.startBtn} onClick={game.displayStartBtn ? () => startGame() : () => endGame()}>{game.displayStartBtn ? "Start Game" : "End Game"}</button>
+                    <button className={styles.startBtn} onClick={game.displayStartBtn ? () => startGame() : () => endGame()}>{game.displayStartBtn ? "Start Game" : "Quit Game"}</button>
                 </div>
                 {/* current score */}
                 <div className={styles.score_board}>
