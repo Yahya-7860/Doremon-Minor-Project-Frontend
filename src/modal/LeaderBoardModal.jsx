@@ -2,26 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import styles from "../CSS Folder/leaderboardModal.module.css"
 import Loading from './Loading';
-
-
-
+import { fetch_leaderboard_data } from '../services/fetch_leaderboard_data';
 
 const LeaderBoardModal = ({ setIsOpen }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        setIsLoading(true)
-        async function fetchPlayers() {
-            await fetch("http://localhost:3000/player/allScore")
-                .then((res) => res.json())
-                .then((data) => {
-                    setIsLoading(false)
-                    setUsers(data.allScores)
-                })
-        }
-        fetchPlayers();
+        fetch_leaderboard_data({ setIsLoading, setUsers })
     }, []);
+
 
     return (
         <div className={styles.modal_overlay} >

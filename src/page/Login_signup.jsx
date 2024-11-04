@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
 import styles from "../CSS Folder/login_signup.module.css"
 import { useNavigate } from "react-router-dom";
-import ConfettiExplosion from 'react-confetti-explosion'
+import ConfettiExplosion from 'react-confetti-explosion';
 import Loading from "../modal/Loading";
 import { useDispatch } from "react-redux";
 import { addCurrentScore } from "../features/score/scoreSlice";
+import { handle_login_submit } from "../services/handle_login_submit";
+import { handle_Register_Submit } from "../services/handle_Register_Submit";
 
 function Login_signup() {
     const navigate = useNavigate();
@@ -37,115 +39,12 @@ function Login_signup() {
     const handleSigninClick = () => {
         containerRef.current.classList.remove(styles.sign_up_mode);
     };
-    const handle_Register_Submit = async (e) => {
-        e.preventDefault();
-        if (!input.RegUsername || !input.RegPassword) {
-            if (!input.RegUsername && !input.RegPassword) {
-                setState((pre) => ({ ...pre, regEmptyUsername: true, regEmptyPassword: true }));
-            } else {
-                setState((pre) => ({
-                    ...pre,
-                    regEmptyUsername: !input.RegUsername,
-                    regEmptyPassword: !input.RegPassword,
-                }));
-            }
-
-            return;
-        }
-        setState((pre) => ({ ...pre, loading: true, confTrue: false, regInputSuccess: false }))
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username: input.RegUsername, password: input.RegPassword }),
-        }
-
-        await fetch("http://localhost:3000/user/register", options)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
-                setState((pre) => ({ ...pre, loading: false }))
-                const token = data.token;
-                const userId = data.userId;
-                const username = data.PlayerName;
-                localStorage.setItem('userId', userId);
-                localStorage.setItem('token', token);
-                localStorage.setItem('username', username);
-                if (data.message === 'exist') {
-                    setState((pre) => ({ ...pre, isExist: true, regEmptyUsername: true }))
-                    return;
-                }
-                setState((pre) => ({ ...pre, confTrue: true, regInputSuccess: true }))
-                dispatch(addCurrentScore({ score: 0 }))
-                setTimeout(() => {
-                    navigate('/welcome')
-                }, 2500);
-
-            })
-            .catch((err) => console.error(err))
-
-    }
-
-    const handle_login_submit = async (e) => {
-        e.preventDefault();
-        if (!input.LogUsername || !input.LogPassword) {
-            if (!input.LogUsername && !input.LogPassword) {
-                setState((pre) => ({ ...pre, logEmptyUsername: true, logEmptyPassword: true }));
-            } else {
-                setState((pre) => ({
-                    ...pre,
-                    logEmptyUsername: !input.LogUsername,
-                    logEmptyPassword: !input.LogPassword,
-                }));
-            }
-            return
-        }
-        setState((pre) => ({ ...pre, loading: true, confTrue: false, logInputSuccess: false }))
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username: input.LogUsername, password: input.LogPassword }),
-        }
-
-        await fetch("http://localhost:3000/user/login", options)
-            .then((res) => res.json())
-            .then((data) => {
-                setState((pre) => ({ ...pre, loading: false }))
-                const token = data.token;
-                const userId = data.userId;
-                const username = data.PlayerName;
-                localStorage.setItem('token', token)
-                localStorage.setItem('userId', userId)
-                localStorage.setItem('username', username)
-                if (data.message === "invalid user") {
-                    setState((pre) => ({ ...pre, invalidUser: true, logEmptyUsername: true }))
-                    return;
-                }
-                else if (data.message === "invalid password") {
-                    setState((pre) => ({ ...pre, wrongPass: true, logEmptyPassword: true }))
-                    return;
-                }
-                setState((pre) => ({ ...pre, confTrue: true, logInputSuccess: true }))
-                dispatch(addCurrentScore({ score: 0 }))
-                setTimeout(() => {
-                    navigate('/welcome')
-                }, 2500);
-
-
-
-            })
-            .catch((err) => console.log(err))
-    }
-
     return <>
         <div ref={containerRef} className={styles.container}>
             <div className={styles.forms_container}>
                 <div className={styles.signin_signup}>
                     {/* login */}
-                    <form className={styles.sign_in_form} onSubmit={handle_login_submit}>
+                    <form className={styles.sign_in_form} onSubmit={(e) => handle_login_submit(e, { input, setState, addCurrentScore }, dispatch, navigate)}>
                         <h2 className={styles.title}>Sign in</h2>
                         <div className={`${state.logEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : styles.input_field} ${state.logInputSuccess ? styles.SuccessInputCss : ""} `}>
                             <i className={`${styles.fas} ${styles.fa_user}`}></i>
@@ -167,7 +66,7 @@ function Login_signup() {
                         <input type="submit" value="Login" className={`${styles.btn} ${styles.solid}`} />
                     </form>
                     {/* register */}
-                    <form className={styles.sign_up_form} onSubmit={handle_Register_Submit} >
+                    <form className={styles.sign_up_form} onSubmit={(e) => handle_Register_Submit(e, { input, setState, addCurrentScore }, dispatch, navigate)} >
                         <h2 className={styles.title}>Sign up</h2>
                         <div className={`${state.regEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : styles.input_field} ${state.regInputSuccess ? styles.SuccessInputCss : ""} `}>
                             <i className={`${styles.fas} ${styles.fa_user}`}></i>
