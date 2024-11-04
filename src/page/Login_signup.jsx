@@ -26,6 +26,8 @@ function Login_signup() {
         regEmptyPassword: false,
         logEmptyUsername: false,
         logEmptyPassword: false,
+        logInputSuccess: false,
+        regInputSuccess: false,
     });
 
     const containerRef = useRef(null)
@@ -50,8 +52,7 @@ function Login_signup() {
 
             return;
         }
-        setState((pre) => ({ ...pre, loading: true }))
-        setState((pre) => ({ ...pre, confTrue: false }))
+        setState((pre) => ({ ...pre, loading: true, confTrue: false, regInputSuccess: false }))
         const options = {
             method: "POST",
             headers: {
@@ -75,8 +76,7 @@ function Login_signup() {
                     setState((pre) => ({ ...pre, isExist: true, regEmptyUsername: true }))
                     return;
                 }
-                setState((pre) => ({ ...pre, confTrue: true }))
-                setInput((pre) => ({ ...pre, RegUsername: '', RegPassword: '' }))
+                setState((pre) => ({ ...pre, confTrue: true, regInputSuccess: true }))
                 dispatch(addCurrentScore({ score: 0 }))
                 setTimeout(() => {
                     navigate('/welcome')
@@ -101,7 +101,7 @@ function Login_signup() {
             }
             return
         }
-        setState((pre) => ({ ...pre, loading: true, confTrue: false }))
+        setState((pre) => ({ ...pre, loading: true, confTrue: false, logInputSuccess: false }))
         const options = {
             method: "POST",
             headers: {
@@ -128,8 +128,7 @@ function Login_signup() {
                     setState((pre) => ({ ...pre, wrongPass: true, logEmptyPassword: true }))
                     return;
                 }
-                setInput((pre) => ({ ...pre, LogUsername: '', LogPassword: '' }))
-                setState((pre) => ({ ...pre, confTrue: true }))
+                setState((pre) => ({ ...pre, confTrue: true, logInputSuccess: true }))
                 dispatch(addCurrentScore({ score: 0 }))
                 setTimeout(() => {
                     navigate('/welcome')
@@ -148,7 +147,7 @@ function Login_signup() {
                     {/* login */}
                     <form className={styles.sign_in_form} onSubmit={handle_login_submit}>
                         <h2 className={styles.title}>Sign in</h2>
-                        <div className={state.logEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : `${styles.input_field}`}>
+                        <div className={`${state.logEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : styles.input_field} ${state.logInputSuccess ? styles.SuccessInputCss : ""} `}>
                             <i className={`${styles.fas} ${styles.fa_user}`}></i>
                             <input type="text" placeholder="Username" value={input.LogUsername} onChange={(e) => {
                                 setInput((pre) => ({ ...pre, LogUsername: e.target.value }));
@@ -157,7 +156,7 @@ function Login_signup() {
                             }} />
                         </div>
                         {state.invalidUser && <p className={styles.isInvalid}>Invalid Username</p>}
-                        <div className={state.logEmptyPassword ? ` ${styles.EmptyInputCss} ${styles.input_field}` : `${styles.input_field}`}>
+                        <div className={`${state.logEmptyPassword ? ` ${styles.EmptyInputCss} ${styles.input_field}` : styles.input_field} ${state.logInputSuccess ? styles.SuccessInputCss : ""} `}>
                             <i className={`${styles.fas} ${styles.fa_lock}`}></i>
                             <input type="password" placeholder="Password" value={input.LogPassword} onChange={(e) => {
                                 setInput((pre) => ({ ...pre, LogPassword: e.target.value }))
@@ -170,7 +169,7 @@ function Login_signup() {
                     {/* register */}
                     <form className={styles.sign_up_form} onSubmit={handle_Register_Submit} >
                         <h2 className={styles.title}>Sign up</h2>
-                        <div className={state.regEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : `${styles.input_field}`}>
+                        <div className={`${state.regEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : styles.input_field} ${state.regInputSuccess ? styles.SuccessInputCss : ""} `}>
                             <i className={`${styles.fas} ${styles.fa_user}`}></i>
                             <input type="text" placeholder="Username" value={input.RegUsername} onChange={(e) => {
                                 setInput((pre) => ({ ...pre, RegUsername: e.target.value }));
@@ -178,7 +177,7 @@ function Login_signup() {
                             }} />
                         </div>
                         {state.isExist && <p className={styles.isExist}>Username already exist</p>}
-                        <div className={state.regEmptyPassword ? ` ${styles.EmptyInputCss} ${styles.input_field}` : `${styles.input_field}`}>
+                        <div className={`${state.regEmptyPassword ? ` ${styles.EmptyInputCss} ${styles.input_field}` : styles.input_field} ${state.regInputSuccess ? styles.SuccessInputCss : ""} `}>
                             <i className={`${styles.fas} ${styles.fa_lock}`}></i>
                             <input type="password" placeholder="Password" value={input.RegPassword} onChange={(e) => {
                                 setInput((pre) => ({ ...pre, RegPassword: e.target.value }))
