@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 import { addCurrentScore } from "../features/score/scoreSlice";
 import { handle_login_submit } from "../services/handle_login_submit";
 import { handle_Register_Submit } from "../services/handle_Register_Submit";
-
 function Login_signup() {
+
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [input, setInput] = useState({
@@ -30,7 +30,8 @@ function Login_signup() {
         logEmptyPassword: false,
         logInputSuccess: false,
         regInputSuccess: false,
-        postImage: ''
+        image: '',
+        Url: ''
     });
 
     const containerRef = useRef(null)
@@ -68,7 +69,7 @@ function Login_signup() {
                         <input type="submit" value="Login" className={`${styles.btn} ${styles.solid}`} />
                     </form>
                     {/* register */}
-                    <form className={styles.sign_up_form} onSubmit={(e) => handle_Register_Submit(e, { input, setState, addCurrentScore, state }, dispatch, navigate)} >
+                    <form className={styles.sign_up_form} onSubmit={(e) => handle_Register_Submit(e, { input, setState, addCurrentScore }, dispatch, navigate)} >
                         <h2 className={styles.title}>Sign up</h2>
                         <div className={`${state.regEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : styles.input_field} ${state.regInputSuccess ? styles.SuccessInputCss : ""} `}>
                             <i className={`${styles.fas} ${styles.fa_user}`}></i>
