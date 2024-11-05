@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import "../App.css";
 import Navbar from '../components/Navbar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addCurrentScore, addMaxScore } from '../features/score/scoreSlice';
 
 const GamePage = () => {
@@ -150,7 +150,6 @@ const GamePage = () => {
 
             const disX = Math.abs(dx - mx);
             const disY = Math.abs(dy - my);
-            // console.log(disX);
 
             if (disX < 100 && disY < 40) {
                 handle_Score_Pass_DB();
@@ -166,7 +165,7 @@ const GamePage = () => {
             } else if (disX < 42 && flag) {
                 gameScoreRef.current = gameScoreRef.current + 1;
                 setGame((pre) => ({ ...pre, gameScore: gameScoreRef.current }));
-                dispatch(addCurrentScore({ score: gameScoreRef.current }))
+                dispatch(addCurrentScore({ score: gameScoreRef.current }));
                 flag = false;
                 setTimeout(() => (flag = true), 1000);
             }

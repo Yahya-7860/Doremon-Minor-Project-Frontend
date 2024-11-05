@@ -59,7 +59,7 @@ body {
   background-size: contain;
   background-repeat: repeat-x;
   position: absolute;
-  bottom: -11.5rem;
+  bottom: -12rem;
 }
 .doremon {
   background-image: url("/images/1.png");
@@ -108,10 +108,10 @@ body {
 }
 @keyframes miceAnimate {
   0% {
-    left: 120rem;
+    left: 170rem;
   }
   100% {
-    left: -20rem;
+    left: -10rem;
   }
 }
 @media screen and (max-width: 768px) {
