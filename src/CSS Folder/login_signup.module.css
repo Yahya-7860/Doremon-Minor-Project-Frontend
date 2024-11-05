@@ -65,7 +65,21 @@ form.sign_in_form {
   margin-bottom: 10px;
 }
 
+.label {
+  padding: 1.5rem 2rem;
+  width: 12rem;
+  font-weight: bolder;
+}
+.file {
+  font-size: 0.8rem;
+  position: relative;
+  left: 4rem;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+}
+
 .input_field {
+  overflow: hidden;
   max-width: 450px;
   width: 100%;
   background-color: #f0f0f0;

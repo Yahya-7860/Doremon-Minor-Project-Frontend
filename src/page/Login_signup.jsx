@@ -30,9 +30,11 @@ function Login_signup() {
         logEmptyPassword: false,
         logInputSuccess: false,
         regInputSuccess: false,
+        postImage: ''
     });
 
     const containerRef = useRef(null)
+
     const handleSignupClick = () => {
         containerRef.current.classList.add(styles.sign_up_mode);
     };
@@ -66,7 +68,7 @@ function Login_signup() {
                         <input type="submit" value="Login" className={`${styles.btn} ${styles.solid}`} />
                     </form>
                     {/* register */}
-                    <form className={styles.sign_up_form} onSubmit={(e) => handle_Register_Submit(e, { input, setState, addCurrentScore }, dispatch, navigate)} >
+                    <form className={styles.sign_up_form} onSubmit={(e) => handle_Register_Submit(e, { input, setState, addCurrentScore, state }, dispatch, navigate)} >
                         <h2 className={styles.title}>Sign up</h2>
                         <div className={`${state.regEmptyUsername ? ` ${styles.EmptyInputCss} ${styles.input_field}` : styles.input_field} ${state.regInputSuccess ? styles.SuccessInputCss : ""} `}>
                             <i className={`${styles.fas} ${styles.fa_user}`}></i>
