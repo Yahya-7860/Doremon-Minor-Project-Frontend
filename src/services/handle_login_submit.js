@@ -1,3 +1,5 @@
+import { BASE_URL } from "../config";
+
 export const handle_login_submit = async (e, { input, setState, addCurrentScore }, dispatch, navigate) => {
     e.preventDefault();
 
@@ -22,7 +24,7 @@ export const handle_login_submit = async (e, { input, setState, addCurrentScore 
         body: JSON.stringify({ username: input.LogUsername, password: input.LogPassword }),
     }
 
-    await fetch("http://localhost:3000/user/login", options)
+    await fetch(`${BASE_URL}/user/login`, options)
         .then((res) => res.json())
         .then((data) => {
             setState((pre) => ({ ...pre, loading: false }))

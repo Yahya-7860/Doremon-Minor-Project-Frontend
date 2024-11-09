@@ -1,4 +1,5 @@
 import { toast } from "react-toastify"
+import { BASE_URL } from "../config"
 
 export const handleDelete = async ({ setState1, token, userId }, navigate) => {
     setState1((pre) => ({ ...pre, isLoading: true }))
@@ -10,7 +11,7 @@ export const handleDelete = async ({ setState1, token, userId }, navigate) => {
         },
     }
     //will delete account
-    await fetch(`http://localhost:3000/player/delete?id=${userId}`, option)
+    await fetch(`${BASE_URL}/player/delete?id=${userId}`, option)
         .then((res) => res.json())
         .then((data) => {
             setState1((pre) => ({ ...pre, isLoading: false }))

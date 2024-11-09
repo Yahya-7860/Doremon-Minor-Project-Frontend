@@ -3,6 +3,7 @@ import "../App.css";
 import Navbar from '../components/Navbar';
 import { useDispatch } from 'react-redux';
 import { addCurrentScore, addMaxScore } from '../features/score/scoreSlice';
+import { BASE_URL } from '../config';
 
 const GamePage = () => {
     const dispatch = useDispatch()
@@ -12,7 +13,7 @@ const GamePage = () => {
     useEffect(() => {
         async function fetchScore() {
             // fetching score
-            await fetch(`http://localhost:3000/player/getScore/${userId}`, {
+            await fetch(`${BASE_URL}/player/getScore/${userId}`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -48,7 +49,7 @@ const GamePage = () => {
     const handle_Score_Pass_DB = async () => {
         setGame((pre) => ({ ...pre, confTrue: false }))
         // fetching score
-        await fetch(`http://localhost:3000/player/getScore/${userId}`, {
+        await fetch(`${BASE_URL}/player/getScore/${userId}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -69,7 +70,7 @@ const GamePage = () => {
         }
 
         dispatch(addMaxScore({ maxScore: updatedScoreRef.current }))
-        await fetch("http://localhost:3000/player/score", {
+        await fetch(`${BASE_URL}/player/score`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

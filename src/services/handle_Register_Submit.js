@@ -1,3 +1,5 @@
+import { BASE_URL } from "../config";
+
 export const handle_Register_Submit = async (e, { input, setState, addCurrentScore }, dispatch, navigate) => {
     e.preventDefault();
     if (!input.RegUsername || !input.RegPassword) {
@@ -22,7 +24,7 @@ export const handle_Register_Submit = async (e, { input, setState, addCurrentSco
         body: JSON.stringify({ username: input.RegUsername, password: input.RegPassword }),
     }
 
-    await fetch("http://localhost:3000/user/register", options)
+    await fetch(`${BASE_URL}/user/register`, options)
         .then((res) => res.json())
         .then((data) => {
             console.log(data)

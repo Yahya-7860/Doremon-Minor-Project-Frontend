@@ -8,7 +8,6 @@ import { addCurrentScore } from "../features/score/scoreSlice";
 import { handle_login_submit } from "../services/handle_login_submit";
 import { handle_Register_Submit } from "../services/handle_Register_Submit";
 function Login_signup() {
-
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [input, setInput] = useState({
