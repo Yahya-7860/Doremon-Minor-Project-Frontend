@@ -20,7 +20,7 @@ export const handleDelete = async ({ setState1, token, userId }, navigate) => {
         })
 
     //will delete score chart related to account
-    await fetch(`http://localhost:3000/score/deleteScore?id=${userId}`, option)
+    await fetch(`${BASE_URL}/score/deleteScore?id=${userId}`, option)
         .then((res) => res.json())
         .then((data) => console.log(data))
 
